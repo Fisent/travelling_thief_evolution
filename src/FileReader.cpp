@@ -31,7 +31,7 @@ int read_number_of_cities(std::string filename)
 	std::getline(myfile, dimension_line);
 
 	std::vector<std::string> results;
-	boost::split(results, dimension_line, [](char c){return c == ' ';});
+	boost::split(results, dimension_line, [](char c){return c == '\t';});
 
 	auto result = results.back();
 	boost::algorithm::trim(result);
@@ -53,7 +53,7 @@ int read_number_of_items(std::string filename)
     std::getline(myfile, dimension_line);
 
     std::vector<std::string> results;
-    boost::split(results, dimension_line, [](char c){return c == ' ';});
+    boost::split(results, dimension_line, [](char c){return c == ' ' or c == '\t';});
 
     auto result = results.back();
     boost::algorithm::trim(result);
@@ -76,7 +76,7 @@ std::vector<City> read_cities(std::string filename)
     std::vector<City> cities;
     std::string current_line;
 
-    for(int i = 0; i <= number_of_cities; i++)
+    for(int i = 0; i < number_of_cities; i++)
     {
         std::getline(myfile, current_line);
         std::vector<std::string> split_results;
@@ -108,27 +108,33 @@ std::vector<Item> read_items(std::string filename)
     }
     //skip cities
     int number_of_cities = read_number_of_cities(filename);
-    for(int i = 0; i <= number_of_cities; i++)
+    for(int i = 0; i < number_of_cities; i++)
     {
         std::getline(myfile, line);
     }
     std::getline(myfile, line);
     
     int mnumber_of_items = read_number_of_items(filename);
+    std::vector<Item> items_result;
 
     std::string current_line;
-    for(int i = 0; i <= mnumber_of_items; i++)
+    for(int i = 0; i < mnumber_of_items; i++)
     {
         std::getline(myfile, current_line);
+        std::cout << current_line << '\n';
         std::vector<std::string> split_results;
         boost::split(split_results, current_line, boost::is_any_of("\t "));
 
         for(auto& result : split_results) {boost::algorithm::trim(result);}
         int id = i + 1;
+        int profit = boost::lexical_cast<int>(split_results.at(1));
+        int weight = boost::lexical_cast<int>(split_results.at(2));
+        int city_id = boost::lexical_cast<int>(split_results.at(3));
 
+        items_result.push_back(Item(id, profit, weight, city_id));
     }
 
-
+    return items_result;
 }
 
 std::vector<int>* file_content_to_vector(std::string input)

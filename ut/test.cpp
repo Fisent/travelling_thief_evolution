@@ -18,7 +18,6 @@ TEST(SquareMatrixShould, createATableWith10Zeros){
 
 TEST(FileReaderShould, readNumberOfCitiesFromFile)
 {
-    //TODO: fix this, it whould be 52
     ASSERT_EQ(file_reader::read_number_of_cities("easy_0.ttp"), 52);
 }
 
@@ -39,7 +38,7 @@ TEST(FileReaderShould, readCitiesFromFile)
 
 TEST(FileReaderShould, readNumberOfItemsFromFile)
 {
-    ASSERT_EQ(file_reader::read_number_of_cities("easy_0.ttp"), 51);
+    ASSERT_EQ(file_reader::read_number_of_items("easy_0.ttp"), 51);
 }
 
 TEST(FileReaderShould, readItemsFromFile)
