@@ -3,17 +3,12 @@
 #include <memory>
 #include <vector>
 #include "Problem.hpp"
-
-class Result;
+#include "Result.hpp"
 
 class Evolution
 {
 public:
-	Evolution(int pop_size, int gen, int px, int pm, int tour) : pop_size(pop_size), gen(gen), px(px), pm(pm), tour(tour)
-	{
-
-	}
-
+	Evolution(int pop_size, int gen, int px, int pm, int tour, std::string filename);
 	void step();
 
 private:
