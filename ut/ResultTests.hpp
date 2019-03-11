@@ -80,8 +80,23 @@ TEST(ResultShould, fixItself)
 	ResultTestable broken_result{10};
 	broken_result.setRes({1,1,3,4,5,6,7,8,9,10});
 	broken_result.fix();
-	std::cout << broken_result.getRes() << '\n';
 	ASSERT_TRUE(no_duplicates(broken_result.getRes()));
+
+	broken_result.setRes({1,1,1,1,1,1,1,1,1,1});
+	broken_result.fix();
+	ASSERT_TRUE(no_duplicates(broken_result.getRes()));
+
+	for(int i = 0; i < 1000; i++)
+	{
+		const int N{20};
+
+		ResultTestable result{N};
+		std::vector<int> maybe_broken_res{};
+		for(int i = 0; i < N; i++) {maybe_broken_res.push_back(random_int(N) + 1);}
+		result.setRes(maybe_broken_res);
+		result.fix();
+		ASSERT_TRUE(no_duplicates(result.getRes()));
+	}
 }
 
 // TEST(ResultShould, crossover)

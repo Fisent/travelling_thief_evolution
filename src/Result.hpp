@@ -19,6 +19,7 @@ protected:
 	void fix();
 	void flip(int first_index, int second_index);
 	Result crossover(Result& first_result, Result& second_result, int pivot_index);
+	int findByValue(int value);
 
 	int N;
 	std::vector<int> res;
