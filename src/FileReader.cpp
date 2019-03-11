@@ -1,5 +1,4 @@
 #include "FileReader.hpp"
-#include "Problem.hpp"
 #include <iostream>
 
 
@@ -33,16 +32,7 @@ std::string read_nth_line(std::string filename, int N)
 
 int read_number_of_cities(std::string filename)
 {
-	std::string output;
-	std::string line;
-	std::ifstream myfile;
-	myfile.open(FILE_PREFIX + filename);
-	for(int i = 0; i < 2; i++)
-	{
-		std::getline(myfile, line);
-	}
-	std::string dimension_line;
-	std::getline(myfile, dimension_line);
+	std::string dimension_line = read_nth_line(filename, 3);
 
 	std::vector<std::string> results;
 	boost::split(results, dimension_line, [](char c){return c == '\t';});
@@ -55,16 +45,7 @@ int read_number_of_cities(std::string filename)
 
 int read_number_of_items(std::string filename)
 {
-    std::string output;
-    std::string line;
-    std::ifstream myfile;
-    myfile.open(FILE_PREFIX + filename);
-    for(int i = 0; i < 3; i++)
-    {
-        std::getline(myfile, line);
-    }
-    std::string dimension_line;
-    std::getline(myfile, dimension_line);
+    std::string dimension_line = read_nth_line(filename, 4);
 
     std::vector<std::string> results;
     boost::split(results, dimension_line, [](char c){return c == ' ' or c == '\t';});
@@ -154,11 +135,11 @@ Problem read_problem(std::string filename)
 {
     int dimension = read_number_of_cities(filename);
     int number_of_items = read_number_of_items(filename);
-    int capacity;
-    float min_speed;
-    float max_speed;
+    int capacity = read_nth_line_value<int>(filename, 5);
+    float min_speed = read_nth_line_value<float>(filename, 6);
+    float max_speed = read_nth_line_value<float>(filename, 7);
 
-
+    return Problem(dimension, number_of_items, capacity, min_speed, max_speed);
 }
 
 std::vector<int>* file_content_to_vector(std::string input)

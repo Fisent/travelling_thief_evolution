@@ -6,7 +6,7 @@ Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::s
 	px(px), 
 	pm(pm), 
 	tour(tour), 
-	problem(filename)
+	problem()
 {
 	auto num_of_cities = file_reader::read_number_of_cities(filename);
 

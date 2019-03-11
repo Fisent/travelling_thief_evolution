@@ -5,6 +5,7 @@
 #include "../src/Evolution.hpp"
 #include "../src/Result.hpp"
 #include "../src/Item.hpp"
+#include "../src/Problem.hpp"
 
 TEST(SquareMatrixShould, beCreated){
     SquareMatrix sm{10};
@@ -24,6 +25,15 @@ TEST(FileReaderShould, readNthLineFromFile)
     std::string read_fourth_line = file_reader::read_nth_line("easy_0.ttp", 4);
     ASSERT_EQ(first_line, read_first_line);
     ASSERT_EQ(fourth_line, read_fourth_line);
+}
+
+TEST(FileReaderShould, readNthLineValueFromFile)
+{
+    int third_line_value{52};
+    int read_third_line_value = file_reader::read_nth_line_value<int>("easy_0.ttp", 3);
+    float sixth_line_value{0.1};
+    float read_sixt_line_value = file_reader::read_nth_line_value<float>("easy_0.ttp", 6);
+
 }
 
 TEST(FileReaderShould, readNumberOfCitiesFromFile)
@@ -54,6 +64,25 @@ TEST(FileReaderShould, readNumberOfItemsFromFile)
 TEST(FileReaderShould, readItemsFromFile)
 {
     auto items = file_reader::read_items("easy_0.ttp");
+}
+
+TEST(FileReaderShould, readProblemFromFile)
+{
+    int e_dimension = 52;
+    int e_num_of_items = 51;
+    int e_capacity = 4046;
+    float e_min_speed = 0.1;
+    float e_max_speed = 1.0;
+    int e_size_of_cities_vector = 52;
+
+    Problem prob = file_reader::read_problem("easy_0.ttp");
+
+    EXPECT_EQ(e_dimension, prob.dimension);
+    EXPECT_EQ(e_num_of_items, prob.number_of_items);
+    EXPECT_EQ(e_capacity, prob.capacity);
+    EXPECT_EQ(e_min_speed, prob.min_speed);
+    EXPECT_EQ(e_max_speed, prob.max_speed);
+    //TODO add vector reading and check it
 }
 
 TEST(ResultShould, beCreated)
