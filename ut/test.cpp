@@ -16,6 +16,16 @@ TEST(SquareMatrixShould, createATableWith10Zeros){
     ASSERT_EQ(sm.get(0,0), 0);
 }
 
+TEST(FileReaderShould, readNthLineFromFile)
+{
+    std::string first_line{"PROBLEM NAME: \tberlin52-TTP\r"};
+    std::string read_first_line = file_reader::read_nth_line("easy_0.ttp", 1);
+    std::string fourth_line{"NUMBER OF ITEMS: \t51\r"};
+    std::string read_fourth_line = file_reader::read_nth_line("easy_0.ttp", 4);
+    ASSERT_EQ(first_line, read_first_line);
+    ASSERT_EQ(fourth_line, read_fourth_line);
+}
+
 TEST(FileReaderShould, readNumberOfCitiesFromFile)
 {
     ASSERT_EQ(file_reader::read_number_of_cities("easy_0.ttp"), 52);

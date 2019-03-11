@@ -1,5 +1,7 @@
 #include "FileReader.hpp"
+#include "Problem.hpp"
 #include <iostream>
+
 
 namespace file_reader
 {
@@ -15,6 +17,18 @@ std::string read_sth(std::string filename)
     }
     myfile.close();
     return output;
+}
+
+std::string read_nth_line(std::string filename, int N)
+{
+    std::ifstream myfile;
+    std::string line;
+    myfile.open(FILE_PREFIX + filename);
+    for(int i = 0; i < N; i++)
+    {
+        std::getline(myfile, line);
+    }
+    return line;
 }
 
 int read_number_of_cities(std::string filename)
@@ -121,7 +135,6 @@ std::vector<Item> read_items(std::string filename)
     for(int i = 0; i < mnumber_of_items; i++)
     {
         std::getline(myfile, current_line);
-        std::cout << current_line << '\n';
         std::vector<std::string> split_results;
         boost::split(split_results, current_line, boost::is_any_of("\t "));
 
@@ -135,6 +148,17 @@ std::vector<Item> read_items(std::string filename)
     }
 
     return items_result;
+}
+
+Problem read_problem(std::string filename)
+{
+    int dimension = read_number_of_cities(filename);
+    int number_of_items = read_number_of_items(filename);
+    int capacity;
+    float min_speed;
+    float max_speed;
+
+
 }
 
 std::vector<int>* file_content_to_vector(std::string input)

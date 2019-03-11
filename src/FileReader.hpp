@@ -15,6 +15,7 @@ namespace file_reader
 
 const std::string FILE_PREFIX = "../problem_files/";
 
+std::string read_nth_line(std::string filename, int N);
 int read_number_of_cities(std::string filename);
 int read_number_of_items(std::string filename);
 std::vector<City> read_cities(std::string filename);
