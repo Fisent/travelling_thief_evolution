@@ -6,13 +6,12 @@ Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::s
 	px(px), 
 	pm(pm), 
 	tour(tour), 
-	problem()
+	problem(file_reader::read_problem(filename))
 {
-	auto num_of_cities = file_reader::read_number_of_cities(filename);
-
-	for(int i = 0; i < pop_size; i++)
+	// for(int i = 0; i < pop_size; i++)
+	for(auto& city : problem.cities)
 	{
-		auto res = std::make_shared<Result>(num_of_cities);
+		auto res = std::make_shared<Result>(problem.cities.size());
 		population.push_back(res);
 	}
 }
