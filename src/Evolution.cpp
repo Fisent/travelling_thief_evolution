@@ -1,9 +1,6 @@
 #include "Evolution.hpp"
-#include "FileReader.hpp"
 
-using namespace file_reader;
-
-Evolution::Evolution(int pop_size, int gen, int px, int pm, int tour, std::string filename): 
+Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::string filename): 
 	pop_size(pop_size),
 	gen(gen), 
 	px(px), 
