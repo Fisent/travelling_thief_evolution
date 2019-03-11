@@ -16,3 +16,8 @@ Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::s
 		population.push_back(res);
 	}
 }
+
+void Evolution::step()
+{
+	
+}

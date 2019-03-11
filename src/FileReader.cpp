@@ -138,8 +138,10 @@ Problem read_problem(std::string filename)
     int capacity = read_nth_line_value<int>(filename, 5);
     float min_speed = read_nth_line_value<float>(filename, 6);
     float max_speed = read_nth_line_value<float>(filename, 7);
+    std::vector<City> cities = read_cities(filename);
+    std::vector<Item> items = read_items(filename);
 
-    return Problem(dimension, number_of_items, capacity, min_speed, max_speed);
+    return Problem(dimension, number_of_items, capacity, min_speed, max_speed, cities, items);
 }
 
 std::vector<int>* file_content_to_vector(std::string input)
