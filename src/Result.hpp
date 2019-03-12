@@ -12,14 +12,17 @@ public:
 		for(int i = 0; i < N; i++) {res.push_back(i);}
 		std::random_shuffle(res.begin(), res.end());
 	}
+	Result(std::vector<int> res): N(res.size()), res(res){
+
+	}
 	void mutate();
-	Result crossover(Result& other);
+	Result crossover(const Result& other, int pivot_index) const;
 
 protected:
 	void fix();
 	void flip(int first_index, int second_index);
-	Result crossover(Result& first_result, Result& second_result, int pivot_index);
-	int findByValue(int value);
+	int find_by_value(int value);
+	bool needs_fixing();
 
 	int N;
 	std::vector<int> res;

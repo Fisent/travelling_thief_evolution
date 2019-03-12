@@ -15,6 +15,7 @@ public:
 	}
 	using Result::flip;
 	using Result::fix;
+	using Result::crossover;
 
 	int getN(){
 		return N;
@@ -99,14 +100,24 @@ TEST(ResultShould, fixItself)
 	}
 }
 
-// TEST(ResultShould, crossover)
-// {
-// 	ResultTestable result1{10};
-// 	ResultTestable result2{10};
+TEST(ResultShould, crossoverInCornerCases)
+{
+	ResultTestable result1{10};
+	ResultTestable result2{10};
 
-// 	result1.setRes({1,2,3,4,5,6,7,8,9,10});
-// 	result2.setRes({10,9,8,7,6,5,4,3,2,1});
+	result1.setRes({10,9,8,7,6,5,4,3,2,1});
+	result2.setRes({1,2,3,4,5,6,7,8,9,10});
 
-// 	auto crossovered = result1.crossover(result1, result2, 5);
-// 	ASSERT_THAT(crossovered.getRes(), ElementsAre(1,2,3,4,5,5,4,3,2,1))
-// }
+	auto r1 = result1.crossover(result2, 0);
+	auto crossovered1 = *static_cast<ResultTestable*>(&r1);
+	ASSERT_THAT(crossovered1.getRes(), ElementsAre(1,2,3,4,5,6,7,8,9,10));
+
+	auto r2 = result1.crossover(result2, 10);
+	auto crossovered2 = *static_cast<ResultTestable*>(&r2);
+	ASSERT_THAT(crossovered2.getRes(), ElementsAre(10,9,8,7,6,5,4,3,2,1));
+}
+
+TEST(ResultShould, crossoverInComplexCases)
+{
+
+}
