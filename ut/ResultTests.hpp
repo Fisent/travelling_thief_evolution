@@ -119,5 +119,17 @@ TEST(ResultShould, crossoverInCornerCases)
 
 TEST(ResultShould, crossoverInComplexCases)
 {
+	ResultTestable result1{10};
+	ResultTestable result2{10};
 
+	result1.setRes({5,4,3,2,1,10,9,8,7,6});
+	result2.setRes({1,2,3,4,5,6,7,8,9,10});
+
+	auto r1 = result1.crossover(result2, 5);
+	auto crossovered1 = *static_cast<ResultTestable*>(&r1);
+	ASSERT_THAT(crossovered1.getRes(), ElementsAre(5,4,3,2,1,6,7,8,9,10));
+
+	auto r2 = result2.crossover(result1, 5);
+	auto crossovered2 = *static_cast<ResultTestable*>(&r2);
+	ASSERT_THAT(crossovered2.getRes(), ElementsAre(1,2,3,4,5,10,9,8,7,6));
 }
