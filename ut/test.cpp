@@ -6,6 +6,7 @@
 #include "SquareMatrixTests.hpp"
 #include "EvolutionTests.hpp"
 #include "ResultTests.hpp"
+#include "ProblemTests.hpp"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

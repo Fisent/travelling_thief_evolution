@@ -15,6 +15,8 @@ public:
 	Result(std::vector<int> res): N(res.size()), res(res){
 
 	}
+	std::vector<int> getRes() const {return res;}
+
 	void mutate();
 	Result crossover(const Result& other, int pivot_index) const;
 
