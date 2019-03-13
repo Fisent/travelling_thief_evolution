@@ -4,6 +4,7 @@
 #include "City.hpp"
 #include "Result.hpp"
 
+#include <boost/optional/optional.hpp>
 #include <iostream>
 
 struct Problem
@@ -16,12 +17,26 @@ struct Problem
 
 	float backpack_worth(const Result& result) const
 	{
-		return 100;
+		return 0;
+	}
+
+	float distance() const
+	{
+		float distance = 0;
+		auto size = cities.size();
+		for(int i = 0; i < size - 1 ; i++)
+		{
+			auto city1 = cities.at(i);
+			auto city2 = cities.at(i + 1);
+			distance += city1.distance(city2);
+		}
+		distance += cities.back().distance(cities.front());
+		return distance;
 	}
 
 	float travel_time(const Result& result) const
 	{
-		return 34;
+		return 0;
 	}
 
 	float cost(const Result& result) const
