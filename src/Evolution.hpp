@@ -13,7 +13,7 @@ public:
 	void step();
 
 
-private:
+protected:
 	int pop_size;
     int gen;
     float px;

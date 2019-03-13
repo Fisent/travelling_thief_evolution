@@ -16,7 +16,9 @@ Result prepareResult()
 
 Problem prepareProblem()
 {
-	Problem problem{5, 6, 50, 0.1, 1.0, {City(1,0,0), City(2,1,0), City(3,1,1), City(4,0,1)}, {}};
+	Problem problem{5, 6, 50, 0.1, 1.0, 
+		{City(1,0,0), City(2,1,0), City(3,1,1), City(4,0,1)},
+		{Item(1, 10, 1, 1), Item(2, 15, 2, 2), Item(3, 1, 5, 3)}};
 
 
 	return problem;
@@ -48,15 +50,15 @@ TEST(ProblemShould, returnProperDistance)
 	ASSERT_EQ(problem.distance(), 4);
 }
 
+TEST(ProblemShould, countBackpackWorth)
+{
+	auto problem = prepareProblem();
+}
+
 TEST(ProblemShould, returnResultsCost)
 {
 	auto problem = prepareProblem();
 	auto result = prepareResult();
 
 	ASSERT_EQ(problem.cost(result), 0);
-}
-
-TEST(ProblemShould, countBackpackWorth)
-{
-
 }

@@ -1,8 +1,13 @@
 #pragma once
 
+#include "Item.hpp"
+
 struct City
 {
-	City(int id, int x, int y): id(id), x(x), y(y) {};
+	City(int id, int x, int y): id(id), x(x), y(y) {
+		for(auto& item: items)
+			this->items.push_back(item);
+	};
 	float distance(const City& other) const
 	{
 		int x = this->x;
@@ -17,4 +22,5 @@ struct City
 	int id;
 	int x;
 	int y;
+	std::vector<Item> items;
 };

@@ -8,8 +8,7 @@ Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::s
 	tour(tour), 
 	problem(file_reader::read_problem(filename))
 {
-	// for(int i = 0; i < pop_size; i++)
-	for(auto& city : problem.cities)
+	for(int i = 0; i < pop_size; i++)
 	{
 		auto res = std::make_shared<Result>(problem.cities.size());
 		population.push_back(res);
