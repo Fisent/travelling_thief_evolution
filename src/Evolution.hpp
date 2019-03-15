@@ -14,6 +14,9 @@ public:
 
 
 protected:
+	bool mutation_condition();
+	bool crossover_condition();
+
 	int pop_size;
     int gen;
     float px;
