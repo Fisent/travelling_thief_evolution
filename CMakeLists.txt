@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(GeneticAlgorithm)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
 set(CMAKE_BUILD_TYPE Debug)
 
 add_library(genetics src/main.cpp src/Evolution.cpp src/FileReader.cpp src/Result.cpp src/Random.cpp)
@@ -11,7 +11,6 @@ add_executable(GeneticAlgorithm src/main.cpp)
 target_link_libraries(GeneticAlgorithm genetics)
 
 #GTest
-add_subdirectory(googletest)
 enable_testing()
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
