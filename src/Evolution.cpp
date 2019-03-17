@@ -26,6 +26,29 @@ bool Evolution::crossover_condition()
 	return random_float(1.0) < px;
 }
 
+std::vector<int> Evolution::random_selection(int how_many)
+{
+	std::vector<int> result;
+	assert(pop_size == population.size());
+
+	for(int i = 0; i < how_many; i++)
+	{
+		int index = random_int(pop_size);
+	}
+
+	return result;
+}
+
+//this stub function returns all results from population
+// TODO: implement it for real
+std::vector<int> Evolution::selection()
+{
+	std::vector<int> result{};
+	for(int i = 0; i<population.size(); i++)
+		result.push_back(i);
+	return result;
+}
+
 void Evolution::step()
 {
 	

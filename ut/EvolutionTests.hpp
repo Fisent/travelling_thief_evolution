@@ -1,6 +1,12 @@
 #pragma once
 
 #include "gtest/gtest.h"
+#include <string>
+
+const float PM{0.01};
+const float PX{0.7};
+
+const int NUM_OF_ITERATIONS{10000};
 
 struct EvolutionTestable : public Evolution
 {
@@ -11,16 +17,16 @@ struct EvolutionTestable : public Evolution
 	using Evolution::problem;
 	using Evolution::mutation_condition;
 	using Evolution::crossover_condition;
+	using Evolution::selection;
+	using Evolution::random_selection;
 };
 
-const int ITERATIONS = 1000000;
-
 TEST(EvolutionShould, beCreated){
-    Evolution e{100, 1000, 0.1, 0.01, 10, "easy_0.ttp"};
+    Evolution e{100, 1000, PX, PM, 10, "easy_0.ttp"};
 }
 
 TEST(EvolutionShould, readContentFromFile){
-	EvolutionTestable e{100, 1000, 0.9, 0.01, 10, "easy_0.ttp"};
+	EvolutionTestable e{100, 1000, PX, PM, 10, "easy_0.ttp"};
 
 	ASSERT_EQ(e.population.size(), 100);
 
@@ -30,7 +36,7 @@ TEST(EvolutionShould, readContentFromFile){
 }
 
 TEST(EvolutionShould, makeAStep){
-	EvolutionTestable e{100, 1000, 0.1, 0.01, 10, "easy_0.ttp"};
+	EvolutionTestable e{100, 1000, PX, PM, 10, "easy_0.ttp"};
 
 	auto pop_before_step = e.population;
 	e.step();
@@ -42,12 +48,41 @@ TEST(EvolutionShould, makeAStep){
 
 TEST(EvolutionShould, checkMutationCondition)
 {
-	EvolutionTestable e{100, 1000, 0.1, 0.01, 10, "easy_0.ttp"};
+	EvolutionTestable e{100, 1000, PX, PM, 10, "easy_0.ttp"};
 	int counter = 0;
-	for(int i = 0; i < 1000000; i++)
+	for(int i = 0; i < NUM_OF_ITERATIONS; i++)
 	{
 		if(e.mutation_condition())
 			counter++;
 	}
-	auto ratio = counter / 1000000.;
+	auto ratio = double{counter} / double{NUM_OF_ITERATIONS};
+
+	ASSERT_NEAR(ratio, PM, 0.01);
+}
+
+TEST(EvolutionShould, checkCrossoverCondition)
+{
+	EvolutionTestable e{100, 1000, PX, PM, 10, "easy_0.ttp"};
+	int counter = 0;
+	for(int i = 0; i < NUM_OF_ITERATIONS; i ++)
+	{
+		if(e.crossover_condition())
+			counter++;
+	}
+	auto ratio = double{counter} / double{NUM_OF_ITERATIONS + 0.0};
+	ASSERT_NEAR(ratio, PX, 0.1);
+}
+
+TEST(EvolutionShould, resturnSomeNumberOfRandomResults)
+{
+	//TODO write this test
+}
+
+TEST(EvolutionShould, performSelection)
+{
+	EvolutionTestable e{100, 1000, PX, PM, 10, "easy_0.ttp"};
+
+	auto selected = e.selection();
+
+	ASSERT_NE(selected.size(), 0);
 }

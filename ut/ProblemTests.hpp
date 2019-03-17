@@ -35,7 +35,6 @@ TEST(CityShould, countDistance)
 
 	City city3{3, 1, 1};
 
-	//TODO change it to float equal
 	ASSERT_NEAR(city1.distance(city3), SQRT_2, 0.0001);
 
 	City city4{4, 3, 3};
