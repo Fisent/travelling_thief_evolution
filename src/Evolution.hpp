@@ -16,7 +16,10 @@ protected:
 	bool mutation_condition();
 	bool crossover_condition();
     //return indexes of selected results
-    std::vector<int> selection();
+    std::pair<int, int> selection();
+    int tournament();
+    void crossover();
+    void mutation();
 
     std::vector<int> random_selection(int how_many);
 
