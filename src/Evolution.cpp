@@ -81,15 +81,34 @@ int Evolution::tournament()
 
 void Evolution::crossover()
 {
-	
+	std::vector<std::shared_ptr<Result>> new_population{};
+
+	int how_many_crossovers = pop_size * px;
+
+	for(int i = 0; i < how_many_crossovers; i++)
+	{
+		auto parents_indexes = selection();
+		auto child = population.at(parents_indexes.first)->crossover(*(population.at(parents_indexes.second)));
+		new_population.push_back(std::make_shared<Result>(child));
+	}
+
+	while(new_population.size() < pop_size)
+	{
+		auto survivor_index = tournament();
+		new_population.push_back(std::shared_ptr<Result>{(population.at(survivor_index))});
+		population.erase(population.begin() + survivor_index);
+	}
+
+	population = new_population;
 }
 
 void Evolution::mutation()
 {
-
+	
 }
 
 void Evolution::step()
 {
-	
+	crossover();
+	mutation();
 }

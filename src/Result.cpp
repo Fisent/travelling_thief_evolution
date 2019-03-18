@@ -53,7 +53,7 @@ void Result::fix(){
     }
 }
 
-Result Result::crossover(const Result& other, int pivot_index = -1) const
+Result Result::crossover(const Result& other, int pivot_index) const
 {
     pivot_index = pivot_index == -1 ? random_int(N) : pivot_index;
 

@@ -18,7 +18,7 @@ public:
 	std::vector<int> getRes() const {return res;}
 
 	void mutate();
-	Result crossover(const Result& other, int pivot_index) const;
+	Result crossover(const Result& other, int pivot_index=-1) const;
 
 protected:
 	void fix();
