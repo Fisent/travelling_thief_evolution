@@ -16,6 +16,8 @@ public:
 	Result(std::vector<int> res): N(res.size()), res(res){
 
 	}
+	Result(Result&) = default;
+	Result(Result&&) = default;
 	std::vector<int> getRes() const {return res;}
 
 	void mutate();

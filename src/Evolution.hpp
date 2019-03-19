@@ -23,6 +23,7 @@ protected:
     int tournament();
     void crossover();
     void mutation();
+    void warnings();
 
     std::vector<int> random_selection(int how_many);
 

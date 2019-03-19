@@ -18,6 +18,14 @@ Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::s
 		auto res = std::make_shared<Result>(problem.cities.size());
 		population.push_back(res);
 	}
+
+	warnings();
+}
+
+void Evolution::warnings()
+{
+	if(pop_size == tour)
+		std::cout << "WARNING! pop_size is equal to tour. Program may fall into infinite loop during selection\n";
 }
 
 bool Evolution::mutation_condition()
@@ -56,7 +64,7 @@ std::pair<int,int> Evolution::selection()
 		std::cout << std::time(0) << " winner1: " << winner1 << ", winner2: " << winner2 << '\n'; 
 		winner2 = tournament();
 	}
-
+	std::cout << __FUNCTION__ << " end\n";
 	return std::pair<int,int>{winner1, winner2};
 }
 
@@ -74,8 +82,12 @@ int Evolution::tournament()
 
 	for(auto index : participants)
 	{
+		if(index >= population.size())
+			std::cout << "ERROR, invalid index!\n";
 		auto participant = population.at(index);
 		auto cost = problem.cost(*participant);
+		std::cout << "participant cost " << cost << "index: " << index << " size of old population " << population.size() << '\n';
+
 
 		if(cost < best_cost)
 		{
@@ -83,6 +95,7 @@ int Evolution::tournament()
 			best_cost = cost;
 		}
 	}
+	std::cout << __FUNCTION__ << " end\n";
 	return winner;
 }
 
@@ -95,9 +108,11 @@ void Evolution::crossover()
 
 	for(int i = 0; i < how_many_crossovers; i++)
 	{
+		std::cout << "crossover loop start\n";
 		auto parents_indexes = selection();
 		auto child = population.at(parents_indexes.first)->crossover(*(population.at(parents_indexes.second)));
 		new_population.push_back(std::make_shared<Result>(child));
+		std::cout << "crossover loop end\n";
 	}
 
 	while(new_population.size() < pop_size)
