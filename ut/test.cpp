@@ -7,6 +7,7 @@
 #include "EvolutionTests.hpp"
 #include "ResultTests.hpp"
 #include "ProblemTests.hpp"
+#include "LaunchEvolutionTests.hpp"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

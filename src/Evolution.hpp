@@ -2,15 +2,18 @@
 
 #include <memory>
 #include <vector>
+
 #include "Problem.hpp"
 #include "Result.hpp"
 #include "FileReader.hpp"
+#include "Snapshot.hpp"
 
 class Evolution
 {
 public:
 	Evolution(int pop_size, int gen, float px, float pm, int tour, std::string filename);
 	void step();
+    Snapshot takeSnapshot();
 
 protected:
 	bool mutation_condition();

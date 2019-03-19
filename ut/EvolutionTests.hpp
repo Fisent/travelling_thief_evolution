@@ -48,8 +48,7 @@ TEST(EvolutionShould, makeAStep){
 	e.step();
 	auto pop_after_step = e.population;
 
-	//TODO uncomment
-	// ASSERT_NE(pop_before_step, pop_after_step);
+	ASSERT_NE(pop_before_step, pop_after_step);
 }
 
 TEST(EvolutionShould, checkMutationCondition)
@@ -125,7 +124,9 @@ TEST(EvolutionShould, performMutation)
 {
 	EvolutionTestable e{POP_SIZE, GEN, PX, PM, TOUR, "easy_0.ttp"};
 
-	auto population_before = e.population;
+	std::vector<std::shared_ptr<Result>> population_before{};
+	for(auto result : e.population)
+		population_before.push_back(std::make_shared<Result>(*result));
 
 	e.mutation();
 
@@ -139,7 +140,9 @@ TEST(EvolutionShould, performMutation)
 		auto result_after = population_after.at(i);
 		for(int i = 0; i < result_before->getRes().size(); i++)
 		{
-			all_similar = all_similar and result_before->getRes().at(i) == result_after->getRes().at(i);
+			int gene_before = result_before->getRes().at(i);
+			int gene_after = result_after->getRes().at(i);
+			all_similar = all_similar and gene_before == gene_after;
 		}
 	}
 

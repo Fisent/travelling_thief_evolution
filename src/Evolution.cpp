@@ -3,6 +3,7 @@
 
 #include <limits.h>
 #include <set>
+#include <ctime>
 
 Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::string filename): 
 	pop_size(pop_size),
@@ -31,6 +32,7 @@ bool Evolution::crossover_condition()
 
 std::vector<int> Evolution::random_selection(int how_many)
 {
+	std::cout << __FUNCTION__ << '\n';
 	std::vector<int> results;
 	assert(pop_size == population.size());
 
@@ -46,16 +48,21 @@ std::vector<int> Evolution::random_selection(int how_many)
 //This function selects two results
 std::pair<int,int> Evolution::selection()
 {
+	std::cout << __FUNCTION__ << '\n';
 	int winner1 = tournament();
 	int winner2 = tournament();
-	while(winner2 == winner1)
+	while(winner2 == winner1){
+		std::cout << population.size() << '\n';
+		std::cout << std::time(0) << " winner1: " << winner1 << ", winner2: " << winner2 << '\n'; 
 		winner2 = tournament();
+	}
 
 	return std::pair<int,int>{winner1, winner2};
 }
 
 int Evolution::tournament()
 {
+	std::cout << __FUNCTION__ << '\n';
 	std::set<int> participants{};
 	while(participants.size() < tour)
 	{
@@ -81,6 +88,7 @@ int Evolution::tournament()
 
 void Evolution::crossover()
 {
+	std::cout << __FUNCTION__ << '\n';
 	std::vector<std::shared_ptr<Result>> new_population{};
 
 	int how_many_crossovers = pop_size * px;
@@ -102,13 +110,22 @@ void Evolution::crossover()
 	population = new_population;
 }
 
+//TODO check if mutation probability should be for whole result, or checked in every gene?
 void Evolution::mutation()
 {
-	
+	std::cout << __FUNCTION__ << '\n';
+	for(auto result : population)
+	{
+		if(crossover_condition())
+		{
+			result->mutate();
+		}
+	}
 }
 
 void Evolution::step()
 {
+	std::cout << __FUNCTION__ << '\n';
 	crossover();
 	mutation();
 }
