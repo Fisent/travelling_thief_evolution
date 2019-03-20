@@ -4,6 +4,7 @@
 #include <limits.h>
 #include <set>
 #include <ctime>
+#include <fstream>
 
 Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::string filename): 
 	pop_size(pop_size),
@@ -20,6 +21,7 @@ Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::s
 	}
 
 	warnings();
+	delete_file_content();
 }
 
 void Evolution::warnings()
@@ -147,6 +149,41 @@ void Evolution::step()
 	mutation();
 }
 
-Snapshot& take_snapshot(){
-	return Snapshot{};
+Snapshot Evolution::take_snapshot(){
+	auto result = best_worst_average();
+	return Snapshot{result.at(0), result.at(1), result.at(2)};
+}
+
+std::vector<float> Evolution::best_worst_average()
+{
+	int sum{0};
+	int best{INT_MAX};
+	int worst{0};
+
+	for(auto& result : population)
+	{
+		int cost = problem.cost(*result);
+		sum += cost;
+		if(cost < best)
+			best = cost;
+		if(cost > worst)
+			worst = cost;
+	}
+
+	float average = sum / population.size();
+
+	return {best, worst, average};
+}
+
+void Evolution::delete_file_content()
+{
+	std::ifstream myfilein;
+	myfilein.open(OUTPUT_PREFIX + filename);
+	if(not myfilein)
+		return;
+
+	std::ofstream myfileout;
+	myfileout.open(OUTPUT_PREFIX + filename);
+	myfileout << "";
+	myfileout.close();
 }

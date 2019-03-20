@@ -13,7 +13,7 @@ class Evolution
 public:
 	Evolution(int pop_size, int gen, float px, float pm, int tour, std::string filename);
 	void step();
-    Snapshot& takeSnapshot();
+    Snapshot take_snapshot();
 
 protected:
 	bool mutation_condition();
@@ -27,11 +27,16 @@ protected:
 
     std::vector<int> random_selection(int how_many);
 
+    std::vector<float> best_worst_average();
+
+    void delete_file_content();
+
 	int pop_size;
     int gen;
     float px;
     float pm;
     int tour;
+    std::string filename;
 
     std::vector<std::shared_ptr<Result>> population;
     Problem problem;

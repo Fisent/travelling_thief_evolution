@@ -12,11 +12,11 @@ void do_the_evolution(Settings settings)
 
 	for(int i = 0; i < settings.gen; i++)
 	{
-		if(i % 10 == 0)
+		if(i % 100 == 0)
 			std::cout << "Progress: " << i/10 << '%' << '\n';
 		e.step();
-		auto snap = e.takeSnapshot();
-		snap.save("e.filename");
+		auto snap = e.take_snapshot();
+		snap.save("DUPA");
 	}
 }
 
@@ -27,4 +27,7 @@ int main(){
 
 	Snapshot s1{10, 15, 0.5};
 	Snapshot s2{15, 20, 1.5};
+
+	s1.save("test.out");
+	s2.save("test.out");
 }

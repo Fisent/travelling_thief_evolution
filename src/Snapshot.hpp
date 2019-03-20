@@ -29,9 +29,6 @@ struct Snapshot
 			std::cout << "WARNING! snapshot wasn't written to file " << filename << '\n';
 	}
 
-
-	//TODO implement function that appends snapshot to file
-
 	std::string filename;
 	int best_cost;
 	int worst_cost;
