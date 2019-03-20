@@ -25,7 +25,7 @@ Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::s
 void Evolution::warnings()
 {
 	if(pop_size == tour)
-		std::cout << "WARNING! pop_size is equal to tour. Program may fall into infinite loop during selection\n";
+		std::cout<< "WARNING! pop_size is equal to tour. Program may fall into infinite loop during selection\n";
 }
 
 bool Evolution::mutation_condition()
@@ -40,7 +40,7 @@ bool Evolution::crossover_condition()
 
 std::vector<int> Evolution::random_selection(int how_many)
 {
-	std::cout << __FUNCTION__ << '\n';
+	//std::cout<< __FUNCTION__ << '\n';
 	std::vector<int> results;
 	assert(pop_size == population.size());
 
@@ -56,21 +56,21 @@ std::vector<int> Evolution::random_selection(int how_many)
 //This function selects two results
 std::pair<int,int> Evolution::selection()
 {
-	std::cout << __FUNCTION__ << '\n';
+	//std::cout<< __FUNCTION__ << '\n';
 	int winner1 = tournament();
 	int winner2 = tournament();
 	while(winner2 == winner1){
-		std::cout << population.size() << '\n';
-		std::cout << std::time(0) << " winner1: " << winner1 << ", winner2: " << winner2 << '\n'; 
+		//std::cout<< population.size() << '\n';
+		//std::cout<< std::time(0) << " winner1: " << winner1 << ", winner2: " << winner2 << '\n'; 
 		winner2 = tournament();
 	}
-	std::cout << __FUNCTION__ << " end\n";
+	//std::cout<< __FUNCTION__ << " end\n";
 	return std::pair<int,int>{winner1, winner2};
 }
 
 int Evolution::tournament()
 {
-	std::cout << __FUNCTION__ << '\n';
+	//std::cout<< __FUNCTION__ << '\n';
 	std::set<int> participants{};
 	while(participants.size() < tour)
 	{
@@ -83,10 +83,10 @@ int Evolution::tournament()
 	for(auto index : participants)
 	{
 		if(index >= population.size())
-			std::cout << "ERROR, invalid index!\n";
+			std::cout<< "ERROR, invalid index!\n";
 		auto participant = population.at(index);
 		auto cost = problem.cost(*participant);
-		std::cout << "participant cost " << cost << "index: " << index << " size of old population " << population.size() << '\n';
+		//std::cout<< "participant cost " << cost << "index: " << index << " size of old population " << population.size() << '\n';
 
 
 		if(cost < best_cost)
@@ -95,31 +95,33 @@ int Evolution::tournament()
 			best_cost = cost;
 		}
 	}
-	std::cout << __FUNCTION__ << " end\n";
+	//std::cout<< __FUNCTION__ << " end\n";
 	return winner;
 }
 
 void Evolution::crossover()
 {
-	std::cout << __FUNCTION__ << '\n';
+	//std::cout<< __FUNCTION__ << '\n';
 	std::vector<std::shared_ptr<Result>> new_population{};
 
 	int how_many_crossovers = pop_size * px;
 
 	for(int i = 0; i < how_many_crossovers; i++)
 	{
-		std::cout << "crossover loop start\n";
+		//std::cout<< "crossover loop start\n";
 		auto parents_indexes = selection();
 		auto child = population.at(parents_indexes.first)->crossover(*(population.at(parents_indexes.second)));
 		new_population.push_back(std::make_shared<Result>(child));
-		std::cout << "crossover loop end\n";
+		//std::cout<< "crossover loop end\n";
 	}
 
 	while(new_population.size() < pop_size)
 	{
+		//std::cout<< "second crossover loop start\n";
 		auto survivor_index = tournament();
 		new_population.push_back(std::shared_ptr<Result>{(population.at(survivor_index))});
 		population.erase(population.begin() + survivor_index);
+		//std::cout<< "second crossover loop end\n";
 	}
 
 	population = new_population;
@@ -128,7 +130,7 @@ void Evolution::crossover()
 //TODO check if mutation probability should be for whole result, or checked in every gene?
 void Evolution::mutation()
 {
-	std::cout << __FUNCTION__ << '\n';
+	//std::cout<< __FUNCTION__ << '\n';
 	for(auto result : population)
 	{
 		if(crossover_condition())
@@ -140,7 +142,7 @@ void Evolution::mutation()
 
 void Evolution::step()
 {
-	std::cout << __FUNCTION__ << '\n';
+	//std::cout<< __FUNCTION__ << '\n';
 	crossover();
 	mutation();
 }

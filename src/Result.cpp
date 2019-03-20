@@ -31,7 +31,7 @@ bool Result::needs_fixing()
 
 int Result::find_by_value(int value) {
     for (int i = 0; i < N; i++) {
-        if (res[i] == (int) value)
+        if (res.at(i) == (int) value)
             return i;
     }
     return -1;
@@ -42,13 +42,13 @@ void Result::fix(){
         return;
 
     for(int i = 0; i < N; i++) {
-        for(int j = N; j > 0; j--){
+        for(int j = N - 1; j > 0; j--){
             int number = -2;
             for(int k = 0; k < N; k++){
                 if(find_by_value(k) == -1) number = k;
             }
             if(find_by_value(i) == find_by_value(j) && number != -2)
-                res[j] = number;
+                res.at(j) = number;
         }
     }
 }
