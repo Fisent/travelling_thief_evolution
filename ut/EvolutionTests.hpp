@@ -148,3 +148,5 @@ TEST(EvolutionShould, performMutation)
 
 	ASSERT_FALSE(all_similar);
 }
+
+//TODO write test for best_result, worst_result and average_result and implement them

@@ -13,7 +13,7 @@ class Evolution
 public:
 	Evolution(int pop_size, int gen, float px, float pm, int tour, std::string filename);
 	void step();
-    Snapshot takeSnapshot();
+    Snapshot& takeSnapshot();
 
 protected:
 	bool mutation_condition();

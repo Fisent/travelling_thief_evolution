@@ -146,3 +146,7 @@ void Evolution::step()
 	crossover();
 	mutation();
 }
+
+Snapshot& take_snapshot(){
+	return Snapshot{};
+}
