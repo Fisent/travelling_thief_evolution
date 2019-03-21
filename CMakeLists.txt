@@ -11,7 +11,6 @@ add_executable(GeneticAlgorithm src/main.cpp)
 target_link_libraries(GeneticAlgorithm genetics)
 
 #GTest
-add_subdirectory(googletest)
 enable_testing()
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 

@@ -15,12 +15,44 @@ struct Problem
 	{
 	}
 
-	float backpack_worth(const Result& result) const
+	int weight_sum()
 	{
-		return 0;
+		int sum{0};
+		for(auto item : backpack)
+			sum += item->weight;
+		return sum;
 	}
 
-	float distance(const Result& result) const
+	float backpack_worth(const Result& result)
+	{
+		for(auto city : cities)
+		{
+			if(city.items.size() == 0)
+				continue;
+			Item* best_item = &city.items.at(0);
+			int best_items_worth = 0;
+			bool selected{false};
+
+			for(auto item : city.items)
+			{
+				backpack.push_back(&item);
+				if(item.profit > best_items_worth)
+				{
+					best_item = &item;
+					best_items_worth = item.profit;
+					selected = true;
+				}
+			}
+			if(selected and capacity - weight_sum() <= best_item->weight)
+				backpack.push_back(best_item);
+		}
+		int sum = 0;
+		for(auto item : backpack)
+			sum += item->profit;
+		return sum;
+	}
+
+	float distance(const Result& result)
 	{
 		float distance = 0;
 		auto size = cities.size();
@@ -39,15 +71,15 @@ struct Problem
 		return distance;
 	}
 
-	float travel_time(const Result& result) const
+	float travel_time(const Result& result)
 	{
-		current_speed / distance(result);
+		return distance(result) / current_speed;
 	}
 
-	float cost(const Result& result) const
+	float cost(const Result& result)
 	{
-
-		return distance(result);
+		backpack = {};
+		return distance(result) - backpack_worth(result);
 	}
 
 	int dimension;
@@ -59,4 +91,6 @@ struct Problem
 	std::vector<Item> items;
 
 	int current_speed{1};
+
+	std::vector<Item*> backpack{};
 };

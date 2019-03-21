@@ -114,9 +114,11 @@ void Evolution::crossover()
 	for(int i = 0; i < how_many_crossovers; i++)
 	{
 		//std::cout<< "crossover loop start\n";
+		if(crossover_condition()){
 		auto parents_indexes = selection();
 		auto child = population.at(parents_indexes.first)->crossover(*(population.at(parents_indexes.second)));
 		new_population.push_back(std::make_shared<Result>(child));
+	}
 		//std::cout<< "crossover loop end\n";
 	}
 
@@ -138,7 +140,7 @@ void Evolution::mutation()
 	//std::cout<< __FUNCTION__ << '\n';
 	for(auto result : population)
 	{
-		if(crossover_condition())
+		if(mutation_condition())
 		{
 			result->mutate();
 		}
@@ -187,5 +189,5 @@ void Evolution::delete_file_content()
 
 std::string Evolution::get_output_filename()
 {
-	return filename + 'p' + std::to_string(pop_size) + 'g' + std::to_string(gen) + 'x' + std::to_string(pm) + 'm' + std::to_string(pm) + 't' + std::to_string(tour) + ".out";
+	return filename + 'p' + std::to_string(pop_size) + 'g' + std::to_string(gen) + 'x' + std::to_string(px) + 'm' + std::to_string(pm) + 't' + std::to_string(tour) + ".out";
 }

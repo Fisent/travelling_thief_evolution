@@ -21,7 +21,7 @@ void do_the_evolution(Settings settings)
 }
 
 int main(){
-	auto settings = get_all_settings();
+	auto settings = max();
 	for(auto setting : settings)
 		do_the_evolution(setting);
 }
