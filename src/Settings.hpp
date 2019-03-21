@@ -2,12 +2,10 @@
 
 #include <iostream>
 
-const std::string PREFIX{"../problem_files/"};
-
 struct Settings
 {
 	Settings(int pop_size, int gen, float px, float pm, int tour, std::string filename):
-		pop_size(pop_size), gen(gen), px(px), pm(pm), tour(tour), filename(PREFIX + filename){}
+		pop_size(pop_size), gen(gen), px(px), pm(pm), tour(tour), filename(filename){}
 
 	int pop_size;
 	int gen;

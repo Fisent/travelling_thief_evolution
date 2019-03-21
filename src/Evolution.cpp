@@ -12,7 +12,8 @@ Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::s
 	px(px), 
 	pm(pm), 
 	tour(tour), 
-	problem(file_reader::read_problem(filename))
+	problem(file_reader::read_problem(filename)),
+	filename(filename)
 {
 	for(int i = 0; i < pop_size; i++)
 	{
@@ -177,13 +178,12 @@ std::vector<float> Evolution::best_worst_average()
 
 void Evolution::delete_file_content()
 {
-	std::ifstream myfilein;
-	myfilein.open(OUTPUT_PREFIX + filename);
-	if(not myfilein)
-		return;
+	std::ofstream ofs;
+	ofs.open(OUTPUT_PREFIX + get_output_filename(), std::ofstream::out | std::ofstream::trunc);
+	ofs.close();
+}
 
-	std::ofstream myfileout;
-	myfileout.open(OUTPUT_PREFIX + filename);
-	myfileout << "";
-	myfileout.close();
+std::string Evolution::get_output_filename()
+{
+	return filename + 'p' + std::to_string(pop_size) + 'g' + std::to_string(gen) + 'x' + std::to_string(pm) + 'm' + std::to_string(pm) + 't' + std::to_string(tour) + ".out";
 }
