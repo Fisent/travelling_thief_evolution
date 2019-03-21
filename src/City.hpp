@@ -21,16 +21,16 @@ struct City
 
 	Item* getBestItem(int weight_left){
 		if(0 == items.size())
-			return;
-		Item* best_item = items.at(0);
+			return nullptr;
+		Item* best_item = &items.at(0);
 
 		for(auto item : items)
 		{
-			if(item.profit > best_item.profit and item.weight <= weight_left)
+			if(item.profit > best_item->profit and item.weight <= weight_left)
 				best_item = &item;
 		}
 
-		return &best_item;
+		return best_item;
 	}
 
 	int id;

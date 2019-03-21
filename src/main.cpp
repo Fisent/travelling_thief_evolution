@@ -12,8 +12,8 @@ void do_the_evolution(Settings settings)
 
 	for(int i = 0; i < settings.gen; i++)
 	{
-		if(i % 100 == 0)
-			std::cout << "Progress: " << i/10 << '%' << '\n';
+		if(i % 10 == 0)
+			std::cout << "Progress: " << (i/float{settings.gen}) * 100 << '%' << '\n';
 		e.step();
 		auto snap = e.take_snapshot();
 		snap.save(e.get_output_filename());
@@ -21,7 +21,7 @@ void do_the_evolution(Settings settings)
 }
 
 int main(){
-	auto settings = get_test_setting();
+	auto settings = get_all_settings();
 	for(auto setting : settings)
 		do_the_evolution(setting);
 }

@@ -45,7 +45,7 @@ bool Evolution::crossover_condition()
 
 std::vector<int> Evolution::random_selection(int how_many)
 {
-	//std::cout<< __FUNCTION__ << '\n';
+	// std::cout<< __FUNCTION__ << '\n';
 	std::vector<int> results;
 	assert(pop_size == population.size());
 
@@ -147,7 +147,7 @@ void Evolution::mutation()
 
 void Evolution::step()
 {
-	//std::cout<< __FUNCTION__ << '\n';
+	// std::cout<< __FUNCTION__ << '\n';
 	crossover();
 	mutation();
 }

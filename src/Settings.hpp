@@ -38,7 +38,7 @@ std::vector<std::string> problem_filenames{
 std::vector<int> pop_sizes{100};
 std::vector<int> gens{1000};
 std::vector<float> pxs{0.7};
-std::vector<float> pms{0.1};
+std::vector<float> pms{0.02};
 std::vector<int> tours{10};
 
 std::vector<Settings> get_all_settings(){
@@ -62,12 +62,22 @@ std::vector<Settings> get_all_settings(){
 			}
 		}
 	}
+	std::cout << "Number of settings: " << settings.size() << '\n';
 	return settings;
 }
 
 std::vector<Settings> get_test_setting(){
-	return {Settings{100, 1000, 0.7, 0.02, 10, "trivial_0.ttp"}};
+	return {Settings{100, 1000, 0.7, 0.02, 20, "trivial_0.ttp"}};
 }
+
+std::vector<Settings> get_hard_setting(){
+	return {Settings{20, 1000, 0.7, 0.02, 10, "hard_0.ttp"}};
+}
+
+std::vector<Settings> get_easy_setting(){
+	return {Settings{100, 500, 0.7, 0.02, 10, "easy_0.ttp"}};
+}
+
 
 std::ostream& operator<<(std::ostream& o, Settings& settings)
 {
@@ -76,7 +86,8 @@ std::ostream& operator<<(std::ostream& o, Settings& settings)
 	o << "number_of_generations(gen)=" << settings.gen << ", ";
 	o << "px=" << settings.px << ", ";
 	o << "pm=" << settings.pm << ", ";
-	o << "tour=" << settings.tour << '\n';
+	o << "tour=" << settings.tour << ", ";
+	o << "filename: " << settings.filename << '\n';
 
 	return o;
 }
