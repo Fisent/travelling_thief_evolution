@@ -17,12 +17,14 @@ Evolution::Evolution(int pop_size, int gen, float px, float pm, int tour, std::s
 {
 	for(int i = 0; i < pop_size; i++)
 	{
-		auto res = std::make_shared<Result>(problem.cities.size());
-		population.push_back(res);
+		population.push_back(std::make_shared<Result>(problem.cities.size()));
 	}
 
 	warnings();
 	delete_file_content();
+
+	//small hack to make pm count for every gene, not whole organism
+	pm = pm * problem.dimension;
 }
 
 void Evolution::warnings()

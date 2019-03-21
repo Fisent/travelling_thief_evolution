@@ -66,7 +66,7 @@ std::vector<Settings> get_all_settings(){
 }
 
 std::vector<Settings> get_test_setting(){
-	return {Settings{100, 1000, 0.7, 0.1, 10, "trivial_0.ttp"}};
+	return {Settings{100, 1000, 0.7, 0.02, 10, "trivial_0.ttp"}};
 }
 
 std::ostream& operator<<(std::ostream& o, Settings& settings)

@@ -10,7 +10,13 @@
 
 Result prepareResult()
 {
-	Result result{10};
+	Result result({0,1,2,3});
+	return result;
+}
+
+Result prepareResultZero()
+{
+	Result result({0,0,0,0});
 	return result;
 }
 
@@ -19,7 +25,6 @@ Problem prepareProblem()
 	Problem problem{5, 6, 50, 0.1, 1.0, 
 		{City(1,0,0), City(2,1,0), City(3,1,1), City(4,0,1)},
 		{Item(1, 10, 1, 1), Item(2, 15, 2, 2), Item(3, 1, 5, 3)}};
-
 
 	return problem;
 }
@@ -45,13 +50,15 @@ TEST(CityShould, countDistance)
 TEST(ProblemShould, returnProperDistance)
 {
 	auto problem = prepareProblem();
+	auto result = prepareResult();
 
-	ASSERT_EQ(problem.distance(), 4);
+	ASSERT_EQ(problem.distance(result), 4);
 }
 
 TEST(ProblemShould, countBackpackWorth)
 {
 	auto problem = prepareProblem();
+	//TODO 
 }
 
 TEST(ProblemShould, returnResultsCost)
@@ -59,5 +66,5 @@ TEST(ProblemShould, returnResultsCost)
 	auto problem = prepareProblem();
 	auto result = prepareResult();
 
-	ASSERT_EQ(problem.cost(result), 0);
+	ASSERT_EQ(problem.cost(result), 4);
 }
